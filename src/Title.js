@@ -9,6 +9,10 @@ export default function Title() {
     const note3 = { title: "バナナジュース", content: "バナナジュースやさんに行った", news: "haugha"};
     const note2 = { title: "もも", content: "ももが5箱届いた", news: ""};
     const [data, setData] = useState([note1, note2, note3]);
+    function deleteData(targetObj) {
+        const newData = data.filter((obj) => JSON.stringify(obj) !== JSON.stringify(targetObj));
+        setData(newData);
+    }
     useEffect(() => {
         console.log("追加")
     }, [data])
@@ -27,7 +31,10 @@ export default function Title() {
         <View style={tailwind('items-stretch m-0 left-0')}>
         {data[0] ? data.map((obj, i) => {
             return <Text key={`title${i}`} style={tailwind('font-bold text-lg border-solid border-b-4 py-1')} onPress={() => navigation.navigate("Content", {
-                obj
+                obj,
+                deleteData,
+                data,
+                setData
             }) }>{obj.title}</Text>
         }) : <Text>新しく作成する</Text>}
         </View>
