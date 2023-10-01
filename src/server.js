@@ -1,8 +1,8 @@
 const express = require('express');
 const PORT = process.env.PORT || 3001;
-const knex = require('./src/knex.js');
+const knex = require('knex');
 const app = express();
-const noteController = require("./src/note.modal.js");
+const noteController = require("./note.modal.js");
 
 
 /*
@@ -21,7 +21,7 @@ app.set("view engine", "ejs");
 /*
   以下によってパブリックディレクトリからスタティックファイル (html, css, etc.) をサーブできる。
 */
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static("public"));
 
 
 app.get('/notes', async (req, res) => {

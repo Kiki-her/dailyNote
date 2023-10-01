@@ -12,6 +12,17 @@ export default function TitleMenu() {
     const note2 = { title: "もも", content: "ももが5箱届いた", news: ""};
     const [data, setData] = useState([note1, note2, note3]);
    
+    useEffect(() => {
+        fetch("http://localhost3001/notes").then((res) => {
+            if(!res.ok) {
+                throw new Error("Network res was not ok")
+            }
+        return res.json();
+    }).then((data) => {
+        console.log(data, "FFFF")
+    });
+    }, []);
+
     const tailwind = useTailwind();
     const navigation = useNavigation();
     function addData(targetObj, data) {

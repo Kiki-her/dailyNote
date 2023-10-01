@@ -1,4 +1,4 @@
-const knex = require(".knex");
+const knex = require("./knex");
 
 module.exports = {
   /**
@@ -6,8 +6,8 @@ module.exports = {
    * @return {Promise<Array>} noteのデータを要素に持つ配列を Promise で返す
    */
     getAll() {
-        return knex("note")
-            .select();
+        return knex("note").select();
+            
     },
 
     /**
