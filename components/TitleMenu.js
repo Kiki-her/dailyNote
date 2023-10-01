@@ -7,10 +7,10 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 
 
 export default function TitleMenu() {
-    const note1 = { title: "10/1", content: "10月になった。暑い", news: "fhfah" };
-    const note3 = { title: "バナナジュース", content: "バナナジュースやさんに行った", news: "haugha"};
-    const note2 = { title: "もも", content: "ももが5箱届いた", news: ""};
-    const [data, setData] = useState([note1, note2, note3]);
+    // const note1 = { title: "10/1", content: "10月になった。暑い", news: "fhfah" };
+    // const note3 = { title: "バナナジュース", content: "バナナジュースやさんに行った", news: "haugha"};
+    // const note2 = { title: "もも", content: "ももが5箱届いた", news: ""};
+    const [data, setData] = useState([]);
    
     useEffect(() => {
         fetch("http://localhost3001/notes").then((res) => {
@@ -19,7 +19,8 @@ export default function TitleMenu() {
             }
         return res.json();
     }).then((data) => {
-        console.log(data, "FFFF")
+        setData(data);
+        console.log(data);
     });
     }, []);
 
@@ -27,6 +28,12 @@ export default function TitleMenu() {
     const navigation = useNavigation();
     function addData(targetObj, data) {
         if(Array.isArray(targetObj) !== true && typeof targetObj === "object") {
+            fetch("http://localhost3001/create", {
+                method: "POST",
+                body: targetObj
+            }).then((res) => res.json()).then((res) => {
+                console.log(res);
+            })
             setData(...data, targetObj);
         }
     }

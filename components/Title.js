@@ -11,6 +11,16 @@ export default function Title(props) {
     function deleteData(targetObj) {
         const newData = data.filter((obj) => JSON.stringify(obj) !== JSON.stringify(targetObj));
         setData(newData);
+        fetch("http://localhost3001/notes").then((res) => res.json()).then((data) => {
+            for(let obj of data) {
+                if(JSON.stringify(targetObj) === JSON.stringify(obj)) {
+                    return obj.id;
+                }
+            }
+        }).then((targetId) => {
+            fetch(`http://localhost3001/delete/${targetId}`).then((res) => res.json()).then((data) => { console.log(data); });
+        });
+        
     }
     
     useEffect(() => {
