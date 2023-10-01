@@ -1,0 +1,59 @@
+{
+	"left-0": {
+		"style": {
+			"left": 0
+		}
+	},
+	"m-0": {
+		"style": {
+			"marginTop": 0,
+			"marginRight": 0,
+			"marginBottom": 0,
+			"marginLeft": 0
+		}
+	},
+	"flex-1": {
+		"style": {
+			"flexGrow": 1,
+			"flexShrink": 1,
+			"flexBasis": "0%"
+		}
+	},
+	"items-stretch": {
+		"style": {
+			"alignItems": "stretch"
+		}
+	},
+	"justify-center": {
+		"style": {
+			"justifyContent": "center"
+		}
+	},
+	"border-b-4": {
+		"style": {
+			"borderBottomWidth": 4
+		}
+	},
+	"border-solid": {
+		"style": {
+			"borderStyle": "solid"
+		}
+	},
+	"text-lg": {
+		"style": {
+			"fontSize": 18,
+			"lineHeight": 28
+		}
+	},
+	"text-xl": {
+		"style": {
+			"fontSize": 20,
+			"lineHeight": 28
+		}
+	},
+	"font-bold": {
+		"style": {
+			"fontWeight": "700"
+		}
+	}
+}
