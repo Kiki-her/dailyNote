@@ -14,3 +14,7 @@ CRUDなApp。
 - Express
 - News API 
 - DeepL API
+
+## dev
+
+立ち上げる前に`dev:tailwind` コマンドを打つ
