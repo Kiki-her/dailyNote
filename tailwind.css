@@ -22,8 +22,9 @@
   border-bottom-width: 4px
 }
 
-.border-solid {
-  border-style: solid
+.py-1 {
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem
 }
 
 .text-lg {

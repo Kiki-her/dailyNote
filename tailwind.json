@@ -34,9 +34,10 @@
 			"borderBottomWidth": 4
 		}
 	},
-	"border-solid": {
+	"py-1": {
 		"style": {
-			"borderStyle": "solid"
+			"paddingTop": 4,
+			"paddingBottom": 4
 		}
 	},
 	"text-lg": {
