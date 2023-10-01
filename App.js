@@ -1,7 +1,7 @@
 import {TailwindProvider} from 'tailwind-rn';
 import utilities from './tailwind.json';
-import TitleMenu from './src/TitleMenu';
-import AppNavi from './src/AppNavi';
+import TitleMenu from './components/TitleMenu';
+import AppNavi from './components/AppNavi';
 
 export default function App() {
   return (
