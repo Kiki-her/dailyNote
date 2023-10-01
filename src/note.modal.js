@@ -7,7 +7,6 @@ module.exports = {
    */
     getAll() {
         return knex("note").select();
-            
     },
 
     /**
