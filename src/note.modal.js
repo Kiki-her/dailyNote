@@ -6,7 +6,7 @@ module.exports = {
    * @return {Promise<Array>} noteのデータを要素に持つ配列を Promise で返す
    */
     getAll() {
-        return knex("note").select();
+        return knex("notes").select();
     },
 
     /**
@@ -15,7 +15,7 @@ module.exports = {
    * @return {Promise<Object>} idに合致するnoteデータを Promise で返す
    */
     getById(id) {
-        return knex("note")
+        return knex("notes")
             .select()
             .where({
                 id,
@@ -29,7 +29,7 @@ module.exports = {
    * @return {Promise<number>} 作成されたnoteの id を Promise で返す
    */
     create(noteObj) {
-        return knex("note").returning("id").insert({
+        return knex("notes").returning("id").insert({
             title: noteObj.title,
             content: noteObj.content,
             news: noteObj.news,
@@ -43,7 +43,7 @@ module.exports = {
    * @return {Promise<number>} 更新されたnoteの id を Promise で返す
    */
   update(id, noteObj) {
-    return knex("note")
+    return knex("notes")
       .where("id", id)
       .update(noteObj)
       .returning("id")
@@ -55,7 +55,7 @@ module.exports = {
    * @return {Promise<number>} 削除されたnoteの id を Promise で返す
    */
    remove(id) {
-    return knex("note").where("id", id).returning("id").del();
+    return knex("notes").where("id", id).returning("id").del();
   },
 
 }
