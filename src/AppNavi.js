@@ -6,6 +6,7 @@ import {
   } from '@react-navigation/stack';
 import TitleMenu from './TitleMenu';
 import ContentPage from './ContentPage';
+import NewContent from './NewContent';
 
   const Root = createStackNavigator();
 export default function AppNavi() {
@@ -14,6 +15,7 @@ export default function AppNavi() {
           <Root.Navigator>
             <Root.Screen name="Home" component={TitleMenu} />
             <Root.Screen name="Content" component={ContentPage} />
+            <Root.Screen name="New" component={NewContent} />
           </Root.Navigator>
         </NavigationContainer>
       );

@@ -7,15 +7,15 @@ export default function ContentPage() {
     const navigation = useNavigation();
     const route = useRoute();
     const obj = route.params.obj;
-    const data = route.params.data;
-    const setData = route.params.setData;
     const deleteData = route.params.deleteData;
     return (
-        <View>
-            <Text>{obj.content}</Text>
-            <Button onPress={() => {
-                deleteData(obj);
-                navigation.navigate("Home");
-            }} title="delete"></Button>
-    </View>)
+        <SafeAreaView>
+            <View>
+                <Text>{obj.content}</Text>
+                <Button onPress={() => {
+                    deleteData(obj);
+                    navigation.navigate("Home");
+                }} title="delete"></Button>
+            </View>
+    </SafeAreaView>)
 }
