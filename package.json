@@ -33,7 +33,8 @@
     "react-native-swipeout": "^2.3.6",
     "react-native-web": "^0.19.9",
     "sqlite3": "^5.1.6",
-    "tailwind-rn": "^4.2.0"
+    "tailwind-rn": "^4.2.0",
+    "zustand": "^4.4.1"
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
