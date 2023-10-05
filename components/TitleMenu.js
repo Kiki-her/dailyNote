@@ -3,7 +3,7 @@ import { Text, View, Button, SafeAreaView } from 'react-native';
 import Title from './Title';
 import {useTailwind} from 'tailwind-rn';
 import { useState, useEffect } from 'react';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useIsFocused } from '@react-navigation/native';
 import { useNoteStore } from './NoteStore';
 
 
@@ -14,8 +14,8 @@ export default function TitleMenu() {
     // const [data, setData] = useState([]);
     const { note, setNote, addNote} = useNoteStore();
 
-   
-    useEffect(() => {
+   const isFocused = useIsFocused()
+       useEffect(() => {
         (async() => { 
                 const response = await fetch("http://localhost:3001/notes");
                 const data = await response.json();
@@ -25,6 +25,16 @@ export default function TitleMenu() {
         
         })();
     }, []);
+    useEffect(() => {
+        (async() => { 
+                const response = await fetch("http://localhost:3001/notes");
+                const data = await response.json();
+                
+                setNote(data);
+                console.log(data);
+        
+        })();
+    }, [isFocused]);
 
     const tailwind = useTailwind();
     const navigation = useNavigation();

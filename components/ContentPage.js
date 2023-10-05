@@ -22,16 +22,16 @@ export default function ContentPage() {
             content: text,
             news: obj.news,
         }
-        const res = await fetch(`localhost:3001/update/${id}`, {
-            method: "PATCH",
+        const res = await fetch(`http://localhost:3001/update/${id}`, {
+            method: "PUT",
             headers: {
-                "Content-Type": "application/json",
+                "Content-Type": "application/json"
             },
             body: JSON.stringify(newObj),
         });
+    
         const message = res.json();
         console.log(message);
-
     }
 
 

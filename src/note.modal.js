@@ -5,8 +5,9 @@ module.exports = {
    * すべてのnoteをGetする
    * @return {Promise<Array>} noteのデータを要素に持つ配列を Promise で返す
    */
-    getAll() {
-        return knex("notes").select("*").returning("*");
+    async getAll() {
+      const result = await knex("notes").select("*").returning("*");
+        return result;
     },
 
     /**
@@ -14,13 +15,14 @@ module.exports = {
    * @param {number} id - note id.
    * @return {Promise<Object>} idに合致するnoteデータを Promise で返す
    */
-    getById(id) {
-        return knex("notes")
+    async getById(id) {
+      const result = await knex("notes")
             .select("*")
             .where({
                 id,
             })
             .first();
+        return result;
     },
 
     /**
@@ -28,12 +30,13 @@ module.exports = {
    * @param {Object} noteObj - 追加する新規note
    * @return {Promise<number>} 作成されたnoteの id を Promise で返す
    */
-    create(noteObj) {
-        return knex("notes").returning("*").insert({
+    async create(noteObj) {
+        const result = await knex("notes").returning("*").insert({
             title: noteObj.title,
             content: noteObj.content,
             news: noteObj.news,
         });
+        return result;
     },
 
      /**
@@ -42,20 +45,31 @@ module.exports = {
    * @param {Object} noteObj - 変更するnoteデータ
    * @return {Promise<number>} 更新されたnoteの id を Promise で返す
    */
-  update(id, noteObj) {
-    return knex("notes")
-      .where("id", id)
-      .update(noteObj)
-      .returning("*")
-      .then((res) => res[0].id);
+  async update(id, noteObj) {
+    if(typeof noteObj !== "object") {
+      noteObj = JSON.parse(noteObj);
+    }
+    console.log("UPDATE", noteObj)
+    const result = await knex("notes")
+        .where("id", id)
+        .update({
+          title: noteObj.title,
+          content: noteObj.content
+        })
+        .returning("*")
+        .then((res) => res[0].id);
+    return result;
+
+    
   },
    /**
    * 既存のnoteを削除する
    * @param {number} id - 既存の注文の一意のid
    * @return {Promise<number>} 削除されたnoteの id を Promise で返す
    */
-   remove(id) {
-    return knex("notes").where("id", id).returning("*").del();
+   async remove(id) {
+    const result = await knex("notes").where("id", id).returning("*").del();
+    return result;
   },
 
 }

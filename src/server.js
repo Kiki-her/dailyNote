@@ -14,6 +14,13 @@ app.use(express.json());
 // 以下はフォームデータのパースのためのもの (application/x-www-form-urlencoded)
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, PATCH, DELETE");
+   res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+  next();
+});
+
 // 以下はアプリのフロントエンドのためのテンプレートを設定している。
 app.set("views", `${__dirname}/templates`);
 app.set("view engine", "ejs");
@@ -41,21 +48,21 @@ app.post("/create", async(req, res) => {
     const newObj = req.body.newObj;
     await noteController.create(newObj);
     res.set({'Access-Control-Allow-Origin': '*' });
-    res.send("new note");
+    res.send({message: "new note"});
 })
 
 app.delete("/delete/:id", async(req, res) => {
     await noteController.remove(req.params.id);
     res.set({'Access-Control-Allow-Origin': '*' });
-    res.send("delete note");
+    res.send({message: "Deleted"});
 })
 
-app.patch("/update/:id", async(req, res) => {
+app.put("/update/:id", async(req, res) => {
     const id = req.params.id;
-    const newObj = req.body.newObj;
+    const newObj = req.body; 
     await noteController.update(id, newObj);
     res.set({'Access-Control-Allow-Origin': '*' });
-    res.send("Updated");
+    res.send({message: "Updated"});
 })
 
 app.listen(PORT, () => {
