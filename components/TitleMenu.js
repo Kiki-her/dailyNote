@@ -16,15 +16,14 @@ export default function TitleMenu() {
 
    
     useEffect(() => {
-        fetch("http://localhost3001/notes").then((res) => {
-            if(!res.ok) {
-                throw new Error("Network res was not ok")
-            }
-        return res.json();
-    }).then((data) => {
-        setNote(data);
-        console.log(data);
-    });
+        (async() => { 
+                const response = await fetch("http://localhost:3001/notes");
+                const data = await response.json();
+                
+                setNote(data);
+                console.log(data);
+        
+        })();
     }, []);
 
     const tailwind = useTailwind();

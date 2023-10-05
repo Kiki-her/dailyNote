@@ -27,7 +27,14 @@ export default function NewContent() {
     //         setData(...data, targetObj);
     //     }
     // }
-    
+    async function postNote(newObj) {
+      const res = await fetch("http://localhost:3001/create", {
+        method: "POST",
+        body: newObj
+      });
+      const newObjData = res.json();
+    }
+
     return (
         <>
           <ScrollView keyboardDismissMode="interactive">
@@ -59,12 +66,7 @@ export default function NewContent() {
                 // addData(newData, data);
                 addNote(newData);
                 if(newData.title !== undefined) {
-                  fetch("http://localhost3001/create", {
-                      method: "POST",
-                      body: newData
-                  }).then((res) => res.json()).then((res) => {
-                      console.log(res);
-                  })
+                  postNote(newData);
                 }
                 navigation.navigate("Home");
             }} title="Save" />

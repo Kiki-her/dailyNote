@@ -27,22 +27,26 @@ app.use(express.static("public"));
 app.get('/notes', async (req, res) => {
     // use the knex variable above to create dynamic queries
     const allNotes = await noteController.getAll();
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send(allNotes);
   });
 
 app.get("/notes/:id", async(req, res) => {
     const targetNote = await noteController.getById(req.params.id);
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send(targetNote);
 })
 
 app.post("/create", async(req, res) => {
     const newObj = req.body.newObj;
     await noteController.create(newObj);
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send("new note");
 })
 
 app.delete("/delete/:id", async(req, res) => {
     await noteController.remove(req.params.id);
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send("delete note");
 })
 
@@ -50,6 +54,7 @@ app.patch("/update/:id", async(req, res) => {
     const id = req.params.id;
     const newObj = req.body.newObj;
     await noteController.update(id, newObj);
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send("Updated");
 })
 

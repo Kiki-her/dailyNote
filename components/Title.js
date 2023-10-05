@@ -10,6 +10,7 @@ export default function Title(props) {
     // const data = props.data;
     // const setData = props.setData;
     const {note, setNote} = useNoteStore();
+    console.log(note)
 
     // function deleteData(targetObj) {
     //     const newData = data.filter((obj) => JSON.stringify(obj) !== JSON.stringify(targetObj));

@@ -17,15 +17,27 @@ export default function ContentPage() {
                 <Text>{obj.content}</Text>
                 <Button onPress={() => {
                     removeNote(obj);
-                    fetch("http://localhost3001/notes").then((res) => res.json()).then((data) => {
-                    for(let obj of data) {
-                        if(JSON.stringify(targetObj) === JSON.stringify(obj)) {
-                            return obj.id;
+                    (async() => {
+                        try {
+                            await fetch("http://localhost:3001/notes").then((res) => res.json()).then((data) => {
+                            for(let obj of data) {
+                                if(JSON.stringify(targetObj) === JSON.stringify(obj)) {
+                                    return obj.id;
+                                }
+                            }
+                            }).then((targetId) => {
+                                (async() => {
+                                    try {
+                                        await fetch(`http://localhost:3001/delete/${targetId}`).then((res) => res.json()).then((data) => { console.log(data); });
+                                    } catch(err) {
+                                        alert(err);
+                                    }
+                                })()
+                            });             
+                        } catch(err) {
+                            alert(err);
                         }
-                    }
-                    }).then((targetId) => {
-                        fetch(`http://localhost3001/delete/${targetId}`).then((res) => res.json()).then((data) => { console.log(data); });
-                    });             
+                    })()
                     navigation.navigate("Home");
                 }} title="delete"></Button>
             </View>
