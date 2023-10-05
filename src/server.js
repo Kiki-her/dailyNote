@@ -45,7 +45,7 @@ app.get("/notes/:id", async(req, res) => {
 })
 
 app.post("/create", async(req, res) => {
-    const newObj = req.body.newObj;
+    const newObj = req.body;
     await noteController.create(newObj);
     res.set({'Access-Control-Allow-Origin': '*' });
     res.send({message: "new note"});

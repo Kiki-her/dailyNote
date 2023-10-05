@@ -10,7 +10,7 @@ export const useNoteStore = create((set) => ({
     setNote: (dataObjofArray) => set((state) => ({note: dataObjofArray})),
     addNote: (dataObj) => set((state) => ({ note: [...state.note, dataObj]})),
     removeNote: (dataObj) => set((state) => {
-        const removedNote = state.note.filter((obj) =>JSON.stringify(obj) !== JSON.stringify(dataObj));
+        const removedNote = state.note.filter((obj) =>obj.id !== dataObj.id);
         return {note: removedNote};
     })
 }))

@@ -28,10 +28,13 @@ export default function NewContent() {
     //     }
     // }
     async function postNote(newObj) {
+      console.log("NEWCONTENT:", newObj);
       const res = await fetch("http://localhost:3001/create", {
         method: "POST",
-        mode: "no-cors",
-        body: newObj
+         headers: {
+                "Content-Type": "application/json"
+            },
+        body: JSON.stringify(newObj)
       });
       const newObjData = res.json();
       console.log(newObjData);

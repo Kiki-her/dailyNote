@@ -31,6 +31,10 @@ module.exports = {
    * @return {Promise<number>} 作成されたnoteの id を Promise で返す
    */
     async create(noteObj) {
+      console.log("CREATE", noteObj) //ない
+        if(typeof noteObj !== "object") {
+      noteObj = JSON.parse(noteObj);
+    }
         const result = await knex("notes").returning("*").insert({
             title: noteObj.title,
             content: noteObj.content,
@@ -49,7 +53,7 @@ module.exports = {
     if(typeof noteObj !== "object") {
       noteObj = JSON.parse(noteObj);
     }
-    console.log("UPDATE", noteObj)
+    
     const result = await knex("notes")
         .where("id", id)
         .update({
