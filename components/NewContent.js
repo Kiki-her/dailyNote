@@ -33,6 +33,7 @@ export default function NewContent() {
         body: newObj
       });
       const newObjData = res.json();
+      console.log(newObjData);
     }
 
     return (
