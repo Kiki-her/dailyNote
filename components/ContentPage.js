@@ -11,9 +11,27 @@ export default function ContentPage() {
     // const deleteData = route.params.deleteData;
     const {removeNote} = useNoteStore();
     const [text, onChangeText] = useState(obj.content);
+    const [title, onChangeTitle] = useState(obj.title);
    
-    function onSaveText() {
-        // textをupdateする関数をNoteStoreで作る
+    async function onSaveText() {
+        // textをupdateする
+        const id = obj.id;
+        const newObj = {
+            id,
+            title: title,
+            content: text,
+            news: obj.news,
+        }
+        const res = await fetch(`localhost:3001/update/${id}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(newObj),
+        });
+        const message = res.json();
+        console.log(message);
+
     }
 
 
@@ -21,6 +39,10 @@ export default function ContentPage() {
     return (
         <SafeAreaView>
             <View>
+                <TextInput
+                    onChangeText={onChangeTitle}
+                    value={title}
+                />
                 <TextInput
                     onChangeText={onChangeText}
                     value={text}
