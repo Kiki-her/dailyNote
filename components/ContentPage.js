@@ -1,7 +1,8 @@
-import { Text, View, Button, SafeAreaView } from 'react-native';
+import { TextInput, View, Button, SafeAreaView } from 'react-native';
 import {useTailwind} from 'tailwind-rn';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useNoteStore } from './NoteStore';
+import { useEffect, useState } from 'react';
 
 export default function ContentPage() {
     const navigation = useNavigation();
@@ -9,12 +10,22 @@ export default function ContentPage() {
     const obj = route.params.obj;
     // const deleteData = route.params.deleteData;
     const {removeNote} = useNoteStore();
+    const [text, onChangeText] = useState(obj.content);
+   
+    function onSaveText() {
+        // textをupdateする関数をNoteStoreで作る
+    }
+
 
 
     return (
         <SafeAreaView>
             <View>
-                <Text>{obj.content}</Text>
+                <TextInput
+                    onChangeText={onChangeText}
+                    value={text}
+                />
+                <Button onPress={onSaveText} title="save"></Button>
                 <Button onPress={() => {
                     removeNote(obj);
                     (async() => {
