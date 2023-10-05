@@ -14,6 +14,13 @@ app.use(express.json());
 // 以下はフォームデータのパースのためのもの (application/x-www-form-urlencoded)
 app.use(express.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+   res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, PATCH, DELETE");
+   res.setHeader("Access-Control-Allow-Headers", "Content-Type")
+  next();
+});
+
 // 以下はアプリのフロントエンドのためのテンプレートを設定している。
 app.set("views", `${__dirname}/templates`);
 app.set("view engine", "ejs");
@@ -27,30 +34,35 @@ app.use(express.static("public"));
 app.get('/notes', async (req, res) => {
     // use the knex variable above to create dynamic queries
     const allNotes = await noteController.getAll();
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send(allNotes);
   });
 
 app.get("/notes/:id", async(req, res) => {
     const targetNote = await noteController.getById(req.params.id);
+    res.set({'Access-Control-Allow-Origin': '*' });
     res.send(targetNote);
 })
 
 app.post("/create", async(req, res) => {
-    const newObj = req.body.newObj;
+    const newObj = req.body;
     await noteController.create(newObj);
-    res.send("new note");
+    res.set({'Access-Control-Allow-Origin': '*' });
+    res.send({message: "new note"});
 })
 
 app.delete("/delete/:id", async(req, res) => {
     await noteController.remove(req.params.id);
-    res.send("delete note");
+    res.set({'Access-Control-Allow-Origin': '*' });
+    res.send({message: "Deleted"});
 })
 
-app.patch("/update/:id", async(req, res) => {
+app.put("/update/:id", async(req, res) => {
     const id = req.params.id;
-    const newObj = req.body.newObj;
+    const newObj = req.body; 
     await noteController.update(id, newObj);
-    res.send("Updated");
+    res.set({'Access-Control-Allow-Origin': '*' });
+    res.send({message: "Updated"});
 })
 
 app.listen(PORT, () => {
