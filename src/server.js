@@ -74,6 +74,7 @@ app.get("/news", async (req, res) => {
   const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
     params: {
       apiKey : API_KEY,
+      pageSize: 1,
       sources: "bbc-news"
     },
   });
