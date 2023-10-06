@@ -1,17 +1,31 @@
-import { TextInput, View, Button, SafeAreaView } from 'react-native';
+import { TextInput, View, Button, SafeAreaView, ScrollView, FlatList, Text  } from 'react-native';
 import {useTailwind} from 'tailwind-rn';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useNoteStore } from './NoteStore';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, } from 'react';
 
 export default function ContentPage() {
     const navigation = useNavigation();
     const route = useRoute();
+    // data
     const obj = route.params.obj;
     // const deleteData = route.params.deleteData;
     const {removeNote} = useNoteStore();
     const [text, onChangeText] = useState(obj.content);
     const [title, onChangeTitle] = useState(obj.title);
+    const [news, setNewsObj] = useState(obj.news);
+    const [newsTitle, setNewsTitle] = useState("");
+    const [newsUrl, setNewsUrl] = useState("");
+    const [newsContent, setContent] = useState("");
+
+    useEffect(() => {
+        const toArray = [...obj.news];
+        toArray.shift();
+        toArray.pop();
+        const pureObj = toArray.join("");
+        const newsObj = JSON.parse(pureObj);
+        setNewsObj(newsObj);
+    }, []);
    
     async function onSaveText() {
         // textをupdateする
@@ -34,12 +48,29 @@ export default function ContentPage() {
         console.log(message);
     }
 
-
+    function getTheDayNews() {
+        if(typeof news !== "object") {
+            console.log("NOT OBJECT:", typeof news)
+        const data = JSON.parse(news);
+        console.log(data);
+        console.log(data.title, data.url)
+        setNewsTitle(data.title);
+        setNewsUrl(data.url);
+        setContent(data.content);
+        } else {
+        setNewsTitle(data.title);
+        setNewsUrl(data.url);
+        setContent(data.content);
+        }
+        
+    }
 
     return (
         <SafeAreaView>
-            <View>
-                <TextInput
+             <ScrollView keyboardDismissMode="interactive">
+            
+        
+          <TextInput
                     onChangeText={onChangeTitle}
                     value={title}
                 />
@@ -47,6 +78,7 @@ export default function ContentPage() {
                     onChangeText={onChangeText}
                     value={text}
                 />
+                </ScrollView>
                 <Button onPress={onSaveText} title="save"></Button>
                 <Button onPress={() => {
                     removeNote(obj);
@@ -62,6 +94,8 @@ export default function ContentPage() {
                     })()
                     navigation.navigate("Home");
                 }} title="delete"></Button>
-            </View>
+            <Text onPress={getTheDayNews}>The Day's News Headlines</Text>
+            {newsTitle !== "" ? <><Text>{newsTitle}<br />{newsContent}</Text><Text onPress={() => window.location.assign(newsUrl)}>{newsUrl}</Text></>: <Text onPress={getTheDayNews}>"click here"</Text>}
+          
     </SafeAreaView>)
 }

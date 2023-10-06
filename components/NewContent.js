@@ -1,7 +1,8 @@
-import React, {useEffect, useState} from 'react';
-import {Button, InputAccessoryView, ScrollView, TextInput} from 'react-native';
+import React, {useCallback, useEffect, useState} from 'react';
+import {Button, InputAccessoryView, ScrollView, TextInput, Text, FlatList, View} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {useNoteStore} from "./NoteStore";
+
 
 
 export default function NewContent() {
@@ -10,23 +11,19 @@ export default function NewContent() {
     const inputAccessoryViewID = 'uniqueID';
     const { text, setText, title, setTitle, note, setNote, addNote} = useNoteStore();
     const initialText = '';
-    // const [text, setText] = useState(initialText);
-    // const [title, setTitle] = useState(initialText);
+    
+    const [news, setNews] = useState([]);
+  
 
-    // const data = route.params.data;
-    // const setData = route.params.setData;
-    // const addData = route.params.addData;
-    // function addData(targetObj, data) {
-    //     if(Array.isArray(targetObj) !== true && typeof targetObj === "object") {
-    //         fetch("http://localhost3001/create", {
-    //             method: "POST",
-    //             body: targetObj
-    //         }).then((res) => res.json()).then((res) => {
-    //             console.log(res);
-    //         })
-    //         setData(...data, targetObj);
-    //     }
-    // }
+    useEffect(() => {
+       fetch("http://localhost:3001/news")
+       .then(res => res.json())
+       .then(data => setNews(data))
+       .catch(error => console.log(error));
+    }, []);
+    
+    
+
     async function postNote(newObj) {
       console.log("NEWCONTENT:", newObj);
       const res = await fetch("http://localhost:3001/create", {
@@ -43,6 +40,20 @@ export default function NewContent() {
     return (
         <>
           <ScrollView keyboardDismissMode="interactive">
+            <Text>News Headlines</Text>
+      <FlatList
+        data={news}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={({ item }) => {
+          
+          return (
+          <View>
+            <Text>{item.title}</Text>
+            <Text onPress={() => window.location.assign(item.url)}>{item.url}</Text>
+          </View>
+        )}}
+      />
+      
           <TextInput
               style={{
                 padding: 16,
@@ -67,7 +78,7 @@ export default function NewContent() {
           <InputAccessoryView nativeID={inputAccessoryViewID}>
             <Button onPress={() => setText(initialText)} title="Clear text" />
             <Button onPress={() => {
-                const newData = {title: title, content: text}
+                const newData = {title: title, content: text, news: news}
                 // addData(newData, data);
                 addNote(newData);
                 if(newData.title !== undefined) {
