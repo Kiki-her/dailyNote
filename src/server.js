@@ -1,8 +1,11 @@
+require("dotenv").config();
 const express = require('express');
 const PORT = process.env.PORT || 3001;
+const API_KEY = process.env.API_KEY;
 const knex = require('knex');
 const app = express();
 const noteController = require("./note.modal.js");
+const { default: axios } = require('axios');
 
 
 /*
@@ -63,6 +66,23 @@ app.put("/update/:id", async(req, res) => {
     await noteController.update(id, newObj);
     res.set({'Access-Control-Allow-Origin': '*' });
     res.send({message: "Updated"});
+})
+
+app.get("/news", async (req, res) => {
+  try{
+   res.set({'Access-Control-Allow-Origin': '*' });
+  const response = await axios.get(`https://newsapi.org/v2/top-headlines`, {
+    params: {
+      apiKey : API_KEY,
+      sources: "bbc-news"
+    },
+  });
+  const newData = response.data.articles;
+  res.send(newData);
+} catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
 })
 
 app.listen(PORT, () => {
