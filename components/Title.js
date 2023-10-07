@@ -36,7 +36,15 @@ export default function Title(props) {
     return (
         <View style={tailwind('items-stretch m-0 left-0')}>
         {Array.isArray(note) ? Array.from(note).map((obj, i) => {
-            return (<Text key={`title${i}`} style={tailwind('font-bold text-lg border-solid border-b-4 py-1')} onPress={() => navigation.navigate("Content", {
+            return (<Text key={`title${i}`} style={{
+                fontWeight: "bold",
+                borderStyle: "solid",
+                borderBlockColor: "block",
+                padding: "5px",
+                fontSize: "1.5rem",
+                borderBottomWidth: 1,
+                backgroundColor: "white"
+            }} onPress={() => navigation.navigate("Content", {
                 obj,
             }) }>{obj.title}</Text>);
         }) : <Text>Please make a new note.</Text>}

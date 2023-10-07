@@ -38,23 +38,10 @@ export default function TitleMenu() {
 
     const tailwind = useTailwind();
     const navigation = useNavigation();
-    // function addData(targetObj, data) {
-    //     if(Array.isArray(targetObj) !== true && typeof targetObj === "object") {
-    //         fetch("http://localhost3001/create", {
-    //             method: "POST",
-    //             body: targetObj
-    //         }).then((res) => res.json()).then((res) => {
-    //             console.log(res);
-    //         })
-    //         setData(...data, targetObj);
-    //     }
-    // }
-    
    
     return (
         <SafeAreaView style={tailwind('flex-1 justify-center')}>
-         
-                <Button style={tailwind("text-xl")} onPress={() => { navigation.navigate("New") }} title="New"/>
+                <Button style={tailwind("text-xl flex-low w-2/4")} color="#2E4374" onPress={() => { navigation.navigate("New") }} title="Add note"/>
                 
                 <Title />
                 

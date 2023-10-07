@@ -8,11 +8,14 @@ const noteController = require("./note.modal.js");
 const { default: axios } = require('axios');
 
 
+
+
 /*
   下の一行によって、受信されるリクエストボディに 'application/json'というContent-Type headerがあるときにJSONをパースするミドルウェアが追加される。
   このミドルウェアが使われるときは、JSON.parseやJSON.stringifyをしなくてもよい。
 */
 app.use(express.json());
+
 
 // 以下はフォームデータのパースのためのもの (application/x-www-form-urlencoded)
 app.use(express.urlencoded({ extended: true }));

@@ -40,7 +40,11 @@ export default function NewContent() {
     return (
         <>
           <ScrollView keyboardDismissMode="interactive">
-            <Text>News Headlines</Text>
+            <Text style={{
+                padding: 5,
+                marginTop: 3,
+                fontSize: "1.2rem"
+              }}>News Headlines</Text>
       <FlatList
         data={news}
         keyExtractor={(item, index) => index.toString()}
@@ -48,8 +52,18 @@ export default function NewContent() {
           
           return (
           <View>
-            <Text>{item.title}</Text>
-            <Text onPress={() => window.location.assign(item.url)}>{item.url}</Text>
+            <Text style={{
+              padding: "3px",
+              height: "2rem",
+              borderColor: "block",
+              fontWeight: "bold"
+            }}>{item.title}</Text>
+            <Text style={{
+              padding: "3px",
+              color: "green",
+              textDecorationColor: "green",
+              textDecorationLine: "underline"
+            }} onPress={() => window.location.assign(item.url)}>{item.url}</Text>
           </View>
         )}}
       />
@@ -57,7 +71,8 @@ export default function NewContent() {
           <TextInput
               style={{
                 padding: 16,
-                marginTop: 50,
+                marginTop: 20,
+                fontSize: "1.2rem"
               }}
               inputAccessoryViewID={inputAccessoryViewID}
               onChangeText={setTitle}
@@ -67,7 +82,9 @@ export default function NewContent() {
             <TextInput
               style={{
                 padding: 16,
-                marginTop: 50,
+                marginTop: 30,
+                fontSize: "1.2rem",
+                maxWidth: "100%"
               }}
               inputAccessoryViewID={inputAccessoryViewID}
               onChangeText={setText}
@@ -75,9 +92,13 @@ export default function NewContent() {
               placeholder={'Please type here…'}
             />
           </ScrollView>
-          <InputAccessoryView nativeID={inputAccessoryViewID}>
-            <Button onPress={() => setText(initialText)} title="Clear text" />
-            <Button onPress={() => {
+          <InputAccessoryView style={{
+              borderColor: "#2E4374",
+              fontSize: "1.2rem",
+              width: "100%"
+            }}  nativeID={inputAccessoryViewID}>
+            <Button color="#2E4374" onPress={() => setText(initialText)} title="Clear text" />
+            <Button color="#2E4374" onPress={() => {
                 const newData = {title: title, content: text, news: news}
                 // addData(newData, data);
                 addNote(newData);

@@ -39,7 +39,7 @@ export default function ContentPage() {
         const res = await fetch(`http://localhost:3001/update/${id}`, {
             method: "PUT",
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
             },
             body: JSON.stringify(newObj),
         });
@@ -73,29 +73,63 @@ export default function ContentPage() {
           <TextInput
                     onChangeText={onChangeTitle}
                     value={title}
+                      style={{
+                        fontWeight: "bold",
+                        padding: 5,
+                        marginTop: 5,
+                        fontSize: "1.2rem"
+                    }}
                 />
                 <TextInput
+                    multiline={true}
                     onChangeText={onChangeText}
                     value={text}
+                      style={{
+                        padding: 5,
+                        marginTop: 10,
+                        fontSize: "1.2rem",
+                        maxWidth: "100%"
+                    }}
                 />
                 </ScrollView>
-                <Button onPress={onSaveText} title="save"></Button>
-                <Button onPress={() => {
+            <Text style={{
+                marginTop: "10px",
+                padding: "3px",
+                height: "2rem",
+                borderColor: "block"
+            }} onPress={getTheDayNews}>The Day's News Headlines</Text>
+            {newsTitle !== "" ? <><Text style={{
+                padding: "3px",
+                borderColor: "block"
+            }}>{newsTitle}<br />{newsContent}</Text><Text style={{
+                padding: "3px",
+                borderColor: "block",
+                color: "green",
+                textDecorationColor: "green",
+                textDecorationLine: "underline",
+            }} onPress={() => window.location.assign(newsUrl)}>{newsUrl}</Text></>: <Text onPress={getTheDayNews}>"click here"</Text>}
+            <View style={{
+                color: "#2E4374",
+                position: "fixed",
+                bottom: 0,
+                width: "100%"
+            }}>
+                <Button color="#2E4374" onPress={onSaveText} title="save"></Button>
+                <Button color="#2E4374" onPress={() => {
                     removeNote(obj);
                     (async() => {
-                       const result = await fetch(`http://localhost:3001/delete/${obj.id}`, {
-            method: "DELETE",
-            headers: {
-                "Content-Type": "application/json"
-            },
+                    const result = await fetch(`http://localhost:3001/delete/${obj.id}`, {
+                        method: "DELETE",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
 
-        });
-                       console.log(result.json());
+                    });
+                    console.log(result.json());
                     })()
                     navigation.navigate("Home");
                 }} title="delete"></Button>
-            <Text onPress={getTheDayNews}>The Day's News Headlines</Text>
-            {newsTitle !== "" ? <><Text>{newsTitle}<br />{newsContent}</Text><Text onPress={() => window.location.assign(newsUrl)}>{newsUrl}</Text></>: <Text onPress={getTheDayNews}>"click here"</Text>}
+            </View>
           
     </SafeAreaView>)
 }
