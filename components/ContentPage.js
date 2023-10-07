@@ -1,5 +1,4 @@
-import { TextInput, View, Button, SafeAreaView, ScrollView, FlatList, Text  } from 'react-native';
-import {useTailwind} from 'tailwind-rn';
+import { TextInput, View, Button, SafeAreaView, ScrollView, Text  } from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import { useNoteStore } from './NoteStore';
 import { useEffect, useState, } from 'react';

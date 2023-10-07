@@ -6,30 +6,11 @@ import { useNavigation } from '@react-navigation/native';
 import { useEffect } from 'react';
 import { useNoteStore } from './NoteStore';
 
-export default function Title(props) {
-    // const data = props.data;
-    // const setData = props.setData;
+export default function Title() {
+
     const {note, setNote} = useNoteStore();
     console.log(note)
 
-    // function deleteData(targetObj) {
-    //     const newData = data.filter((obj) => JSON.stringify(obj) !== JSON.stringify(targetObj));
-    //     setData(newData);
-    //     fetch("http://localhost3001/notes").then((res) => res.json()).then((data) => {
-    //         for(let obj of data) {
-    //             if(JSON.stringify(targetObj) === JSON.stringify(obj)) {
-    //                 return obj.id;
-    //             }
-    //         }
-    //     }).then((targetId) => {
-    //         fetch(`http://localhost3001/delete/${targetId}`).then((res) => res.json()).then((data) => { console.log(data); });
-    //     });
-        
-    // }
-    
-    // useEffect(() => {
-    //     console.log(data)
-    // }, [data])
 
     const tailwind = useTailwind();
     const navigation = useNavigation();

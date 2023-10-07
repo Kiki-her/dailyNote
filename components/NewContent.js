@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from 'react';
+import React, { useEffect, useState} from 'react';
 import {Button, InputAccessoryView, ScrollView, TextInput, Text, FlatList, View} from 'react-native';
 import { useNavigation, useRoute } from '@react-navigation/native';
 import {useNoteStore} from "./NoteStore";
@@ -100,7 +100,6 @@ export default function NewContent() {
             <Button color="#2E4374" onPress={() => setText(initialText)} title="Clear text" />
             <Button color="#2E4374" onPress={() => {
                 const newData = {title: title, content: text, news: news}
-                // addData(newData, data);
                 addNote(newData);
                 if(newData.title !== undefined) {
                   postNote(newData);
