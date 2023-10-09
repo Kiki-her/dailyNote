@@ -87,7 +87,8 @@ export default function ContentPage() {
                         padding: 5,
                         marginTop: 10,
                         fontSize: "1.2rem",
-                        maxWidth: "100%"
+                        maxWidth: "100%",
+                        height: "50vh"
                     }}
                 />
                 </ScrollView>

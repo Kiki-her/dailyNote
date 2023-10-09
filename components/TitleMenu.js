@@ -10,22 +10,27 @@ import { useNoteStore } from './NoteStore';
 export default function TitleMenu() {
 
     const { note, setNote, addNote} = useNoteStore();
+    const [isPassed, setPassStatus] = useState(false);
 
     const isFocused = useIsFocused()
     useEffect(() => {
-        const password = window.prompt("This app isn't published. If you have PW, enter here.");
-        // this password is publish. you can try
-        if(password !== "29857920") {
-            window.open('about:blank', '_self').close();
-            window.open("https://github.com/Kiki-her");
-        } else {
-            (async() => { 
-                    const response = await fetch("http://localhost:3001/notes");
-                    const data = await response.json();              
-                    setNote(data);
-                    console.log(data);
-            
-            })();
+        if(!isPassed) {
+            const password = window.prompt("This app isn't published. If you have PW, enter here.");
+            // this password is publish. you can try
+            if(password !== "29857920") {
+                window.open('about:blank', '_self').close();
+                window.open("https://github.com/Kiki-her");
+            } else {
+                setPassStatus(true);
+                (async() => { 
+                        const response = await fetch("http://localhost:3001/notes");
+                        const data = await response.json();              
+                        setNote(data);
+                        console.log(data);
+                
+                })();
+            }
+
         }
     }, []);
     useEffect(() => {
